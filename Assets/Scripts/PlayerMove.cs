@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     private float moveSpeed = 10.0f;
-    private float JumpPower = 20.0f;
+    private float JumpPower = 40.0f;
     //private bool isJumping = false;
     private Rigidbody2D body;
     // Start is called before the first frame update
@@ -36,6 +36,6 @@ public class PlayerMove : MonoBehaviour
     }
     void Jump()
     {
-        body.AddForce(Vector3.up * JumpPower, ForceMode2D.Impulse);
+        body.AddForce(Vector3.up * JumpPower*2, ForceMode2D.Impulse);
     }
 }

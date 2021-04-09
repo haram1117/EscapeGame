@@ -8,6 +8,8 @@ public class Stage1 : MonoBehaviour
     string objectName = "";
     bool objectTouch = false;
     public GameObject ObjScreen;
+    public GameObject Comscreen_default;
+    public GameObject Comscreen_369;
     public InputField password;
 
     // Start is called before the first frame update
@@ -21,6 +23,8 @@ public class Stage1 : MonoBehaviour
     {
         if(ObjScreen.activeSelf)
             GetPassword();
+        if (Input.GetKeyDown(KeyCode.Escape))
+            ObjScreen.SetActive(false);
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -42,21 +46,22 @@ public class Stage1 : MonoBehaviour
     {
         objectTouch = false;
         objectName = "";
-        ObjScreen.SetActive(false);
+        ObjScreen.SetActive(false);//collision 밖으로 나가면 ObjScreen 비활
     }
 
     private void OnMouseDown()
     {
-        if (objectTouch)
+        if (objectTouch) //오브젝트 누르면 ObjScreen 활성화
         {
             Debug.Log(objectName);
             ObjScreen.SetActive(true);
+            Comscreen_default.SetActive(true);
         }
     }
     private void GetPassword()
     {
-        if (password.text.ToString() == "12365874")
-            Debug.Log("clear!");
+        if (password.text.ToString() == "12365874" && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
+            Comscreen_369.SetActive(true);
     }
 
 
