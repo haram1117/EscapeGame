@@ -14,18 +14,20 @@ public class Stage1 : MonoBehaviour
     public GameObject Clock_6;
     public GameObject Clock_9;
 
+    float clock_3_angle = 0;
+    float clock_6_angle = 0;
+    float clock_9_angle = 0;
+
     public GameObject hour_3;
     public GameObject hour_6;
     public GameObject hour_9;
 
+
     public InputField password;
+    bool key_get = false;
 
     bool comclear = false;
-    bool clockclear = false;
-    bool clock_clear3 = false;
-    bool clock_clear6 = false;
-    bool clock_clear9 = false;
-
+    static bool clockclear = false;
 //    private Collider hour_C;
 //    float angle_h;
 //    float angle_m;
@@ -49,7 +51,11 @@ public class Stage1 : MonoBehaviour
         {
             Out_Screen();
         }
-        Check_clock();
+        //Check_clock();
+        clock_3_angle = Clock.clock_3_angle;
+        clock_6_angle = Clock.clock_6_angle;
+        clock_9_angle = Clock.clock_9_angle;
+        Clock_Sync();
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -101,6 +107,12 @@ public class Stage1 : MonoBehaviour
                 Clock_6.SetActive(true);
             else if (objectName == "Clock_9")
                 Clock_9.SetActive(true);
+            else if (objectName == "Key1")
+            {
+                Debug.Log("Å° È¹µæ!");
+                GameObject.Find("Key1").SetActive(false);
+                key_get = true;
+            }
         }
         
     }
@@ -131,28 +143,35 @@ public class Stage1 : MonoBehaviour
         Clock_9.SetActive(false);
     }
 
-    private void Check_clock()
+    //private void Check_clock()
+    //{
+    //    Debug.Log("3: " + clock_clear3 + " 6: " + clock_clear6 + " 9: " + clock_clear9);
+    //    //Debug.Log(hour_3.transform.rotation.z);
+    //    if (hour_3.transform.rotation.z == -90)
+    //        clock_clear3 = true;
+    //    else if (hour_3.transform.rotation.z != -90 && Clock_3.activeSelf)
+    //        clock_clear3 = false;
+
+    //    if (hour_6.transform.rotation.z == 180)
+    //        clock_clear6 = true;
+    //    else if (hour_6.transform.rotation.z != 180)
+    //        clock_clear6 = false;
+
+    //    if (hour_9.transform.rotation.z == 90)
+    //        clock_clear9 = true;
+    //    else if (hour_3.transform.rotation.z != 90)
+    //        clock_clear9 = false;
+
+    //    if (clock_clear3 && clock_clear6 && clock_clear9)
+    //    {
+    //        Debug.Log("Clock Clear!");
+    //    }
+    //}
+    private void Clock_Sync()
     {
-        Debug.Log("3: " + clock_clear3 + " 6: " + clock_clear6 + " 9: " + clock_clear9);
-        Debug.Log(hour_3.transform.rotation.z);
-        if (hour_3.transform.rotation.z == -90)
-            clock_clear3 = true;
-        else if (hour_3.transform.rotation.z != -90)
-            clock_clear3 = false;
-
-        if (hour_6.transform.rotation.z == 180)
-            clock_clear6 = true;
-        else if (hour_6.transform.rotation.z != 180)
-            clock_clear6 = false;
-
-        if (hour_9.transform.rotation.z == 90)
-            clock_clear9 = true;
-        else if (hour_3.transform.rotation.z != 90)
-            clock_clear9 = false;
-
-        if (clock_clear3 && clock_clear6 && clock_clear9)
-        {
-            Debug.Log("Clock Clear!");
-        }
+        Debug.Log(clock_3_angle);
+        hour_3.transform.rotation = Quaternion.Euler(hour_3.transform.rotation.x, hour_3.transform.rotation.y, clock_3_angle);
+        hour_6.transform.rotation = Quaternion.Euler(hour_6.transform.rotation.x, hour_6.transform.rotation.y, clock_6_angle);
+        hour_9.transform.rotation = Quaternion.Euler(hour_9.transform.rotation.x, hour_9.transform.rotation.y, clock_9_angle);
     }
 }
